@@ -1,0 +1,2 @@
+# miniapp-lifecycle
+MiniApp Lifecycle
