@@ -138,7 +138,7 @@ Page({
         </tr>
         <tr class="tbody-first-child">
           <td align="left"> Application Error </td>
-          <td align="left"> N/A </td>
+          <td align="left"> Error event on Element/Window (https://w3c.github.io/uievents/#event-type-error) </td>
         </tr>
         <tr class="tbody-first-child">
           <td align="left"> Page Loaded </td>
