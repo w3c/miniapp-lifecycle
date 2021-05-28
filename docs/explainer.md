@@ -142,7 +142,7 @@ Page({
         </tr>
         <tr class="tbody-first-child">
           <td align="left"> Page Loaded </td>
-          <td align="left"> It is mentioned that "we already have a longstanding `onload` event", but have not found the link. Welcome for input </td>
+          <td align="left"> load UI Event (https://www.w3.org/TR/uievents/#event-type-load), or window.onload event handler (https://html.spec.whatwg.org/multipage/webappapis.html#handler-onload)</td>
         </tr>
         <tr class="tbody-first-child">
           <td align="left"> Page Ready </td>
