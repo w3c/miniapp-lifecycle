@@ -51,6 +51,12 @@
                 name: "Xia Xu",
                 companyURL: "http://www.alibabagroup.com/en/global/home",
                 company: "Alibaba"
+              }],
+            
+            formerEditors: [{
+                name: "Xia Xu",
+                companyURL: "http://www.alibabagroup.com/en/global/home",
+                company: "Alibaba"
               },
 
             group: "wg/miniapps",
@@ -59,19 +65,22 @@
               repoURL: "https://github.com/w3c/miniapp-lifecycle",
               branch: "main",
             },
+            
+            localBiblio:  {
+              "MINIAPP-PACKAGING": {
+                  title: "MiniApp Packaging",
+                  href: "https://w3c.github.io/miniapp-packaging/"
+              },
+            },
         };
     </script>
 </head>
 
-<body>
+<body data-cite="HTML webidl">
     <section id='abstract'>
-        <!-- <p its-locale-filter-list="en" lang="en"> -->
         <p>
           This specification defines the MiniApp lifecycle events and the process to manage MiniApp and each page's lifecycle. Implementing this specification enables the user agent to manage the lifecycle events of both global application lifecycle and page lifecycle.
         </p>
-        <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">
-          本规范定义了MiniApp生命周期的事件与管理MiniApp应用及各个MiniApp页面的生命周期流程。通过实施本规范可以实现user agent对MiniApp全局应用生命周期与MiniApp页面生命周期的管理。
-        </p> -->
     </section>
     <section id='sotd'>
         <!-- <p its-locale-filter-list="en" lang="en">
@@ -87,363 +96,536 @@
     </section>
 
     <section>
-      <!-- <h2>
-        <span its-locale-filter-list="en" lang="en">Background</span>
-        <span its-locale-filter-list="zh-hans" lang="zh-hans">背景</span> 
-      </h2> -->
       <h2>Background</h2>
-      <!-- <p its-locale-filter-list="en" lang="en"> -->
       <p>
-        Application lifecycle mechanism provides a means to manage the lifecycle events of both global application lifecycle and page lifecycle. Developing MiniApp with knowledge of the application’s and page’s lifecycle state can lead to improved user experiences. MiniApp lifecycle includes a set of events, with which MiniApp can choose to alter its behavior based on its state.
+        As described in <a href="https://www.w3.org/TR/mini-app-white-paper/#separate-the-view-layer-from-the-logic-layer">MiniApp Standardization White Paper</a>, in a miniapp, the View layer is separated from the Logic layer. The <dfn data-dfn-for="Document" data-export="">View layer</dfn> is responsible for rendering MiniApp pages, including Web rendering and native rendering, which can be considered as hybrid rendering. The <dfn data-dfn-for="Document" data-export="">Logic layer</dfn> is implemented with JavaScript Worker. The Logic layer is responsible for MiniApp’s event processing, API calling and lifecycle management.
       </p>
-        <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">
-          应用生命周期机制提供了一种管理生命周期事件的机制，可以管理全局应用生命周期与页面生命周期。在开发MiniApp时，了解应用与页面的生命周期状态，可以帮助提供更好的用户体验。MiniApp生命周期包括一系列事件，MiniApp可以利用这些事件来基于生命周期状态变更MiniApp的行为。
-        </p> -->
+      <p>
+        MiniApp lifecycle mechanism provides a means to manage MiniApp's View layer and Logic layer through the MiniApp [=Document/global application lifecycle events=] and MiniApp [=Document/page lifecycle events=]. Developing MiniApp with knowledge of the MiniApp [=Document/global application lifecycle states=] and MiniApp [=Document/page lifecycle states=] can lead to improved user experiences. MiniApp lifecycle includes a set of events, with which MiniApp can choose to alter its behavior based on its state.
+      </p>
     </section>
 
     <section>
         <h2>MiniApp Global Application Lifecycle</h2>
         <section>
-          <h2>MiniApp Global Application Lifecycle States</h2>
-          <!-- <p its-locale-filter-list="en" lang="en"> -->
-          <p>This spec defines what the lifecycle of a MiniApp global application is and adds definition to enable MiniApp to respond to four important lifecycle events commonly performed by MiniApp:</p>
-          <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">本规范规定MiniApp全局生命周期的定义，以及MiniApp重要的四个生命周期事件：</p> -->
+          <h2>MiniApp Global Application Lifecycle Events</h2>
+          <p>This spec defines what the lifecycle of a MiniApp global application is and adds definition to enable MiniApp to respond to four important <dfn data-dfn-for="Document" data-export="">global application lifecycle events</dfn> commonly performed by MiniApp:</p>
           <ul>
           <li>
-            <!-- <p its-locale-filter-list="en" lang="en"> -->
-            <p>MiniApp initialization</p>
-            <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">MiniApp初始化</p> -->
+            <p>MiniApp <dfn data-dfn-for="Document" data-export="" data-dfn-type=
+          "dfn">initialization</dfn></p>
           </li>
           <li>
-            <!-- <p its-locale-filter-list="en" lang="en"> -->
-            <p>MiniApp running in foreground</p>
-            <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">MiniApp前台运行</p> -->
+            <p>MiniApp <dfn data-dfn-for="Document" data-export="" data-dfn-type=
+          "dfn">running in foreground</dfn></p>
           </li>
           <li>
-            <!-- <p its-locale-filter-list="en" lang="en"> -->
-            <p>MiniApp running in background</p>
-            <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">MiniApp后台运行</p> -->
+            <p>MiniApp <dfn data-dfn-for="Document" data-export="" data-dfn-type=
+          "dfn">running in background</dfn></p>
           </li> 
           <li>
-            <!-- <p its-locale-filter-list="en" lang="en"> -->
-            <p>MiniApp error</p>
-            <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">MiniApp错误</p> -->
+            <p>MiniApp <dfn data-dfn-for="Document" data-export="" data-dfn-type=
+          "dfn">in error</dfn></p>
           </li>
           </ul>
           
-          <!-- <p its-locale-filter-list="en" lang="en"> -->
-          <p>For each MiniApp, after initialized, it will be either running in the foreground or in the background.</p>
-          <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">对每一个MiniApp，在初始化后，它会运行在前台或后台。</p> -->
-
-          <!-- <p its-locale-filter-list="en" lang="en"> -->
-          <p>When user chooses to close the MiniApp by clicking the close button on MiniApp, or go to the mobile phone’s home screen, the MiniApp will not be destroyed immediately, but switch to be running in the background.</p>
-          <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">当用户选择点击MiniApp的关闭按键来关闭MiniApp时，或者回到手机的桌面时，MiniApp并不会被销毁，而是转为运行在后台。</p> -->
-          
-          <!-- <p its-locale-filter-list="en" lang="en"> -->
-          <p>When user reopens the same MiniApp, MiniApp will switch from running in the background to the foreground.</p>
-          <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">当用户再次打开同一个MiniApp时，MiniApp会从后台切换为前台运行。</p> -->
-            
-          <!-- <p its-locale-filter-list="en" lang="en"> -->
+          <p>For each MiniApp, after [=Document/initialization=], it will be either [=Document/running in foreground=] or [=Document/running in background=].</p>
+          <p>When user chooses to close the MiniApp by clicking the close button on MiniApp, or go to the mobile phone’s home screen, the MiniApp will not be destroyed immediately, but switch to be [=Document/running in background=].</p>
+          <p>When user reopens the same MiniApp, MiniApp will switch from [=Document/running in background=] to [=Document/running in foreground=].</p>
           <p>Only when MiniApp runs in the background for more than a specific time duration (e.g., 5 minutes), or occupies too much system resources in the background, the MiniApp will be destroyed.</p>
-          <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">只有当MiniApp在后台运行了超过一段时间（比如5分钟），或者占用了太多后台系统资源，则MiniApp会被销毁。</p> -->
             
-          <!-- <p its-locale-filter-list="en" lang="en"> -->
-          <p>This spec formalizes four global application lifecycle states to support the above:</p>
-          <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">本规范定义了四个生命周期状态来支持以上的功能：</p> -->
+        </section>
+        
+        <section>
+          <h2>MiniApp Global Application Lifecycle States</h2>
+          <p>This spec formalizes four <dfn data-dfn-for="Document" data-export="">global application lifecycle states</dfn> to support the above [=Document/global application lifecycle events=]:</p>
 
-          <ul>
-          <li>
-            <!-- <p its-locale-filter-list="en" lang="en"> -->
-            <p>Launched: lifecycle state for MiniApp initialization. This means that the MiniApp initialization is completed, and it is triggered only once. Through this event, developer can obtain the information of the MiniApp, such as URI, source info, etc.
-            </p>
-            <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">
-              launched：MiniApp初始化的生命周期状态。代表MiniApp初始化已经完成，并且该状态只触发一次。通过这个事件，开发者可以获取MiniApp的信息，包括URI、来源信息等。
-            </p> -->
-            </li>
-          <li>
-            <p its-locale-filter-list="en" lang="en">Shown: lifecycle state for MiniApp running in foreground. It is triggered once the MiniApp enters the launched state, or once the MiniApp switches to be running in foreground from background.
-            </p>
-            <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">
-              shown：MiniApp前台运行的生命周期状态。在MiniApp启动完成后触发，或者在MiniApp从后台转为前台运行时触发。
-            </p> -->
-            </li>
-          <li>
-            <!-- <p its-locale-filter-list="en" lang="en"> -->
-            <p>Hidden: lifecycle state for MiniApp running in background. It is triggered once the MiniApp switches to be running from foreground to background.
-            </p>
-            <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">
-              hidden：MiniApp后台运行的生命周期状态。在MiniApp从前台转为后台运行时触发。
-            </p> -->
-            </li>
-          <li>
-            <!-- <p its-locale-filter-list="en" lang="en"> -->
-            <p>Error: lifecycle state for MiniApp error. It is triggered once the MiniApp is confronted with script error.
-            </p>
-            <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">
-              error：MiniApp错误的生命周期状态。在MiniApp遇到脚本错误时触发。
-            </p> -->
-            </li>
-          </ul>
-            
-          <p>The MiniApp global application lifecycle states are reflected in the API via the GlobalState enum.</p>
+      <dl>
+        <dt>
+          <dfn data-dfn-for="Document" data-export="" data-dfn-type=
+          "dfn">launched</dfn>
+        </dt>
+        <dd>
+          Lifecycle state for MiniApp [=Document/initialization=]. This means that the MiniApp [=Document/initialization=] is completed, and it is triggered only once. Through this event, developer can obtain the information of the MiniApp, such as URI, source info, etc.
+        </dd>
+        <dt>
+          <dfn data-dfn-for="Document" data-export="" data-dfn-type=
+          "dfn">shown</dfn>
+        </dt>
+        <dd>
+          Lifecycle state for MiniApp [=Document/running in foreground=]. It is triggered once the MiniApp enters the [=Document/launched=] state, or once the MiniApp switches to be [=Document/running in foreground=] from [=Document/running in background=].
+        </dd>
+        <dt>
+          <dfn data-dfn-for="Document" data-export="" data-dfn-type=
+          "dfn">hidden</dfn>
+        </dt>
+        <dd>
+          Lifecycle state for MiniApp [=Document/running in background=]. It is triggered once the MiniApp switches to be [=Document/running in background=] from [=Document/running in foreground=].
+        </dd>
+        <dt>
+          <dfn data-dfn-for="Document" data-export="" data-dfn-type=
+          "dfn">error</dfn>
+        </dt>
+        <dd>
+          Lifecycle state for MiniApp [=Document/in error=]. It is triggered once the MiniApp is confronted with script error.
+        </dd>
+      </dl>
+        </section>
+                
+        <section data-dfn-for="GlobalState">
+          <h2>
+            <code>GlobalState</code> enum
+          </h2>
+          <p>The MiniApp [=Document/global application lifecycle states=] are reflected in the API via the {{GlobalState}} enum.</p>
             
           <pre class="idl">
           enum GlobalState {
-              “launched”, “shown”, “hidden”, “error”
+              "launched", "shown", "hidden", "error"
           };
-          </pre>
-        </section>
+          </pre> 
           
+          <p>
+            The <dfn>GlobalState</dfn> enum is used to represent the
+            [=Document/global application lifecycle states=].
+          </p>
+          <p>
+            The "<dfn>launched</dfn>" enum value represents the [=Document/launched=]
+            [=Document/global application lifecycle states=].
+         </p>
+          <p>
+            The "<dfn>shown</dfn>" enum value represents the [=Document/shown=]
+            [=Document/global application lifecycle states=].
+         </p>
+         <p>
+            The "<dfn>hidden</dfn>" enum value represents the [=Document/hidden=]
+            [=Document/global application lifecycle states=].
+         </p>
+         <p>
+            The "<dfn>error</dfn>" enum value represents the [=Document/error=]
+            [=Document/global application lifecycle states=].
+         </p>
+        </section>
+        
+                  
+        <section data-dfn-for="Global">
+          <h2>MiniApp Global Application Lifecycle interface and callbacks</h2>
+          
+          <pre class="idl">
+           [Exposed=Window]
+           interface Global {
+            undefined getGlobalState (
+                GlobalLaunchedCallback globalLaunchedCallback,
+                GlobalShownCallback globalShownCallback,
+                GlobalHiddenCallback globalHiddenCallback,
+                GlobalErrorCallback globalErrorCallback
+            );
+           };
+
+          callback GlobalLaunchedCallback = undefined (
+            InputObject inputObject
+          );
+          
+          callback GlobalShownCallback = undefined (
+            InputObject inputObject
+          );
+          
+          callback GlobalHiddenCallback = undefined (
+          );
+          
+          callback GlobalErrorCallback = undefined (
+            LifecycleError lifecycleError
+          );
+
+         </pre>
+         
+         <section>
+            <h2>
+                `getGlobalState()` method
+            </h2>
+            <p>
+                When <dfn>getGlobalState()</dfn> is invoked, the user agent MUST:
+            </p>
+            <ol class="algorithm">
+                <li>Request global application lifecycle state, passing globalLaunchedCallback, globalShownCallback, globalHiddenCallback, and globalErrorCallback.
+                </li>
+                <li>Return `undefined`.
+                </li>
+            </ol>
+        </section>
+        
         <section>
-          <h2>MiniApp Global Application Lifecycle API</h2>
-          
-          <!-- <p its-locale-filter-list="en" lang="en"> -->
-          <p>MiniApp global application lifecycle involves the following API:</p>
-          <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">MiniApp全局应用生命周期包含如下API：</p> -->
-          
-          <ul>
-          <li>
-            <!-- <p its-locale-filter-list="en" lang="en"> -->
-            <p>onLaunch(object: Object): to monitor the callback of MiniApp initialization.</p>
-            <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">onLaunch(object: Object)：监测MiniApp初始化的回调</p> -->
-             <ul>
-             <li>
-              <!-- <p its-locale-filter-list="en" lang="en"> -->
-              <p>object contains several attributes:</p>
-              <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">object包含如下属性：</p> -->
-                 <ul>
-                 <li>
-                   <!-- <p its-locale-filter-list="en" lang="en"> -->
-                   <p>
-                     query: inputted query for current MiniApp
-                   </p>
-                   <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">
-                    query：当前MiniApp的输入query
-                   </p> -->
-                  </li>
-                 <li>
-                   <!-- <p its-locale-filter-list="en" lang="en"> -->
-                   <p>
-                     path: the page path for current MiniApp
-                   </p>
-                   <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">
-                    path：当前MiniApp的页面路径
-                   </p> -->
-                  </li>
-                 <li>
-                   <!-- <p its-locale-filter-list="en" lang="en"> -->
-                   <p>
-                     referrerInfo: source info for current MiniApp, including MiniApp ID, and optional extra data
-                   </p>
-                   <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">
-                    referrerInfo：当前MiniApp的来源信息，包括MiniApp ID，以及可选的其他数据
-                   </p> -->
-                  </li>
-                 </ul>
-             </li>
-             </ul>
-          </li>
-          <li>
-            <!-- <p its-locale-filter-list="en" lang="en"> -->
-            <p>onShow(object: Object): to monitor the callback of MiniApp foreground display.</p>
-            <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">onShow(object: Object)：监测MiniApp前台显示的回调</p> -->
-             <ul>
-             <li>
-              <!-- <p its-locale-filter-list="en" lang="en"> -->
-              <p>Definition of object is same as the onLaunch(object: Object)</p>
-              <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">定义与onLaunch(object: Object)相同</p> -->
-              </li>
-             </ul>
-          </li>
-          <li>
-            <!-- <p its-locale-filter-list="en" lang="en"> -->
+            <h2>
+                `globalLaunchedCallback`
+            </h2>
             <p>
-              onHide(): to monitor the callback of MiniApp switching to be running in the background.
+                If MiniApp's first page is ready to load, invoke {{GlobalLaunchedCallback}}.
             </p>
-            <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">
-              onHide()：监测MiniApp转为后台运行的回调
-            </p> -->
-          </li>
-          <li>
-            <!-- <p its-locale-filter-list="en" lang="en"> -->
-            <p>
-              onError(error: String): to monitor the callback of MiniApp error.
-            </p>
-            <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">
-              onError(error: String)：监测MiniApp错误的回调
-            </p> -->
-          </li>
-          </ul>
         </section>
+        
+        <section>
+            <h2>
+                `globalShownCallback`
+            </h2>
+            <p>
+                If MiniApp enters the [=Document/shown=] [=Document/global application lifecycle states=], or if MiniApp switches to be [=Document/running in foreground=] from [=Document/running in background=], invoke {{GlobalShownCallback}}.
+            </p>
+        </section>
+        
+        <section>
+            <h2>
+                `globalHiddenCallback`
+            </h2>
+            <p>
+                If MiniApp switches to be [=Document/running in background=] from [=Document/running in foreground=], invoke {{GlobalHiddenCallback}}.
+            </p>
+        </section>
+        
+        <section>
+            <h2>
+                `globalErrorCallback`
+            </h2>
+            <p>
+                If MiniApp MiniApp is confronted with script error, invoke {{GlobalErrorCallback}}.
+            </p>
+        </section>
+                   
+        </section>
+        
+        <section data-dfn-for="InputObject">
+            <h2>
+                `InputObject` interface
+            </h2>
+            <pre class="idl">
+                [Exposed=Window]
+                interface InputObject {
+                    readonly attribute DOMString inputQuery;
+                    readonly attribute DOMString pagePath;
+                    readonly attribute DOMString referrerInfo;
+                };
+            </pre>
+            <section>
+                <h3>
+                    `inputQuery` attribute
+                </h3>
+                <p>
+                    The <dfn>inputQuery</dfn> attribute contains inputted query for the MiniApp.
+                </p>
+            </section>
+            
+            <section>
+                <h3>
+                    `pagePath` attribute
+                </h3>
+                <p>
+                    The <dfn>pagePath</dfn> attribute contains the page path for current MiniApp.
+                </p>
+            </section>
+            
+            <section>
+                <h3>
+                    `referrerInfo` attribute
+                </h3>
+                <p>
+                    The <dfn>referrerInfo</dfn> attribute contains the source info for the MiniApp, including MiniApp ID, and optional extra data.
+                </p>
+            </section>
+            
+        </section>
+        
+        <section data-dfn-for="LifecycleError">
+            <h2>
+                `LifecycleError` interface
+            </h2>
+            <pre class="idl">
+                [Exposed=Window]
+                interface LifecycleError {
+                    readonly attribute DOMString errorDescription;
+                };
+            </pre>
+            
+            <section>
+                <h3>
+                    `errorDescription` attribute
+                </h3>
+                <p>
+                    The <dfn>errorDescription</dfn> attribute is a developer-friendly textual description of the [=Document/error=] [=Document/global application lifecycle states=].
+                </p>
+            </section>
+        
+       </section>
+       
        </section>
 
         <section>
           <h2>MiniApp Page Lifecycle</h2>
          <section>
-          <h2>MiniApp Page Lifecycle States</h2>
-            
-          <!-- <p its-locale-filter-list="en" lang="en"> -->
-          <p>This spec defines what the lifecycle of a MiniApp page is and adds definition to enable MiniApp to respond to five important page lifecycle events commonly performed by MiniApp:</p>
-          <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">本规范规定MiniApp页面生命周期的定义，以及MiniApp重要的五个页面生命周期事件：</p> -->
+          <h2>MiniApp Page Lifecycle Events</h2>
+
+          <p>This spec defines what the lifecycle of a MiniApp page is and adds definition to enable MiniApp to respond to five important <dfn data-dfn-for="Document" data-export="">page lifecycle events</dfn> commonly performed by MiniApp:</p>
           <ul>
           <li>
-            <!-- <p its-locale-filter-list="en" lang="en"> -->
-            <p>MiniApp page loading</p>
-            <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">MiniApp页面加载</p> -->
+            <p>MiniApp <dfn data-dfn-for="Document" data-export="" data-dfn-type=
+          "dfn">page loading</dfn></p>
           </li>
           <li>
-            <!-- <p its-locale-filter-list="en" lang="en"> -->
-            <p>MiniApp page first rendering ready</p>
-            <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">MiniApp页面首次渲染完成</p> -->
+            <p>MiniApp <dfn data-dfn-for="Document" data-export="" data-dfn-type=
+          "dfn">page first render ready</dfn></p>
           </li>
           <li>
-            <!-- <p its-locale-filter-list="en" lang="en"> -->
-            <p>MiniApp page running in foreground</p>
-            <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">MiniApp页面前台运行</p> -->
+            <p>MiniApp <dfn data-dfn-for="Document" data-export="" data-dfn-type=
+          "dfn">page running in foreground</dfn></p>
           </li>
           <li>
-            <!-- <p its-locale-filter-list="en" lang="en"> -->
-            <p>MiniApp page running in background</p>
-            <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">MiniApp页面后台运行</p> -->
+            <p>MiniApp <dfn data-dfn-for="Document" data-export="" data-dfn-type=
+          "dfn">page running in background</dfn></p>
           </li>
           <li>
-            <!-- <p its-locale-filter-list="en" lang="en"> -->
-            <p>MiniApp page unloading</p>
-            <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">MiniApp页面关闭</p> -->
+            <p>MiniApp <dfn data-dfn-for="Document" data-export="" data-dfn-type=
+          "dfn">page unloading</dfn></p>
           </li>
           </ul>
           
-          <!-- <p its-locale-filter-list="en" lang="en"> -->
-          <p>The following figure illustrates the MiniApp page lifecycle.</p>
-          <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">下图描述了MiniApp页面生命周期过程。</p> -->
+          <aside class="note">
+            <p>
+              When a MiniApp is launched, the process of rendering the first MiniApp page that is displayed to the user is called the <dfn data-dfn-for="Document" data-export="" data-dfn-type=
+          "dfn">first render</dfn>.
+            </p>
+          </aside>
           
+          <!-- <p>The following figure illustrates the MiniApp global application and page lifecycle.</p>
           <figure id="lifecycle-img">
             <span style="text-align:center;"><img src="images/lifecycle.png" alt="MiniApp page lifecycle" width="600"></span>
-            <figcaption>MiniApp page lifecycle illustration</figcaption>
-          </figure>
+            <figcaption>MiniApp global application and page lifecycle illustration</figcaption>
+          </figure> -->
 
-          <ul>
+          <ol>
 <li>
-  <!-- <p its-locale-filter-list="en" lang="en"> -->
-  <p>When user firstly opens a MiniApp, the RenderView and Worker will simultaneously start the initialization.</p>
-  <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">当用户第一次打开一个MiniApp时，RenderView与Worker同时启动初始化。</p> -->
+  <p>When user firstly opens a MiniApp, the MiniApp [=Document/initialization=] starts. [=Document/View layer=] and [=Document/Logic layer=] will simultaneously start the initialization.</p>
 </li>
 <li>
-  <!-- <p its-locale-filter-list="en" lang="en"> -->
-  <p>After Worker is initialized, it runs MiniApp global lifecycle event app.onLaunch and app.onShow to create the MiniApp instance.</p>
-  <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">Worker初始化完成后，它运行MiniApp全局生命周期事件app.onLaunch与app.onShow来创建MiniApp实例。</p> -->
+  <p>Once [=Document/Logic layer=] initialization is completed, it creates a MiniApp instance. Simultaneously, once [=Document/View layer=] initialization is completed, it starts the MiniApp [=Document/page loading=], to establish communication channel between [=Document/View layer=] and [=Document/Logic layer=].</p>
 </li>
 <li>
-  <!-- <p its-locale-filter-list="en" lang="en"> -->
-  <p>Afterwards，Worker runs MiniApp page lifecycle event page.onLoad.</p>
-  <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">之后，Worker运行MiniApp页面生命周期事件page.onLoad。</p> -->
+  <p>After the communication channel is established, [=Document/Logic layer=] sends the initial data to [=Document/View layer=] to start the [=Document/first render=].</p>
 </li>
 <li>
-  <!-- <p its-locale-filter-list="en" lang="en"> -->
-  <p>Then Worker sends the initial data to RenderView to start the first render.</p>
-  <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">Worker发送初始化数据到RenderView来启动页面首次渲染。</p> -->
+  <p>If [=Document/View layer=] completes the page UI update based on the inputted initial data from [=Document/Logic layer=], the [=Document/first render=] is considered as completed, and then [=Document/View layer=] notifies [=Document/Logic layer=], to trigger the MiniApp [=Document/page first render ready=].</p>
 </li>
 <li>
-  <!-- <p its-locale-filter-list="en" lang="en"> -->
-  <p>Once first render is completed, RenderView notifies Worker, then Worker runs MiniApp page lifecycle event page.onReady.</p>
-  <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">首次渲染完成后，RenderView通知Worker，之后Worker运行MiniApp页面生命周期事件page.onReady。</p> -->
+  <p>Afterwards, user can interact with MiniApp. [=Document/View layer=] can be triggered to deliver user event to [=Document/Logic layer=] for further processing, then [=Document/Logic layer=] returns result data to [=Document/View layer=] for re-render.</p>
 </li>
 <li>
-  <!-- <p its-locale-filter-list="en" lang="en"> -->
-  <p>Afterwards, user can interact with MiniApp. RenderView can be triggered to deliver user event to Worker for further processing, then Workers returns result data to RenderView for re-render.</p>
-  <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">之后用户可以与MiniApp进行交互。RenderView会被触发来发送用户事件到Worker进行处理，然后Worker返回结果数据到RenderView进行再次渲染。</p> -->
-</li>
-<li>
-  <!-- <p its-locale-filter-list="en" lang="en"> -->
   <p>
-    If MiniApp page switch to be running in the background, Worker runs MiniApp page lifecycle event page.onHide keep alive. If MiniApp page switch to foreground, Worker runs MiniApp page lifecycle event page.onShow.
+    If user leaves the current MiniApp page (e.g., by navigating to another MiniApp page), MiniApp [=Document/page running in background=] is triggered. If the MiniApp page is reopened, MiniApp [=Document/page running in foreground=] is triggered.
   </p>
-  <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">
-    如果MiniApp页面转为后台运行，Worker运行MiniApp页面生命周期事件page.onHide来保活。如果MiniApp页面转为前台运行，Worker运行MiniApp页面生命周期事件page.onShow。
-  </p> -->
 </li>
 <li>
-  <!-- <p its-locale-filter-list="en" lang="en"> -->
   <p>
-    If to destroy MiniApp page, Worker runs MiniApp page lifecycle event page.onUnload.
+    If user closes the current MiniApp page, MiniApp [=Document/page unloading=] is triggered.
   </p>
-  <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">
-    如果要销毁MiniApp页面，则Worker运行MiniApp页面生命周期事件page.onUnload。
-  </p> -->
   </li>
-          </ul>
-             
-          <!-- <p its-locale-filter-list="en" lang="en"> -->
-          <p>This spec formalizes five page lifecycle states to support the above:</p>
-          <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">本规范定义了五个页面生命周期状态来支持以上的功能：</p> -->
-          <ul>
-          <li>
-            <!-- <p its-locale-filter-list="en" lang="en"> -->
-            <p>Loaded: lifecycle state for MiniApp page loading. This means that MiniApp page loading is completed. At this moment, Worker has obtained initialization data. Developers can obtain the path of current MiniApp page as well as the path’s query. Also, at this moment, the system event can be monitored.</p>
-            <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">Loaded：MiniApp页面加载的生命周期状态。代表MiniApp页面加载已经完成。此时Worker已经获取到初始化数据，开发者能获取当前MiniApp页面路径、以及页面的query，并且此时系统事件可以被监测。</p> -->
-          </li>
-          <li>
-            <!-- <p its-locale-filter-list="en" lang="en"> -->
-            <p>Ready: lifecycle state for MiniApp page’s first rendering. It is triggered once the MiniApp page first rendering is completed. At this moment, the page UI can be configured.</p>
-            <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">Ready：MiniApp页面首次渲染的生命周期状态。在MiniApp页面首次渲染完成后触发。此时页面UI可以被配置。</p> -->
-          </li>
-          <li>
-            <!-- <p its-locale-filter-list="en" lang="en"> -->
-            <p>Shown: lifecycle state for MiniApp page display. It is triggered once the page switches to be running in foreground from background. At this moment, developers can update data and refresh page.</p>
-            <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">Shown：MiniApp页面显示的生命周期状态。在MiniApp从后台转为前台运行时触发。此时开发者可以更新页面。</p> -->
-          </li>
-          <li>
-            <!-- <p its-locale-filter-list="en" lang="en"> -->
-            <p>Hidden: lifecycle state for MiniApp page running in background. It is triggered once the MiniApp page switches to be running from foreground to background.</p>
-            <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">Hidden：MiniApp页面后台运行的生命周期状态。在MiniApp从前台转为后台运行时触发。</p> -->
-          </li>
-          <li>
-            <!-- <p its-locale-filter-list="en" lang="en"> -->
-            <p>Unloaded: lifecycle state for MiniApp page destroying. It is triggered once the MiniApp page is destroyed. At this moment, the registered monitoring event is destroyed.</p>
-            <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">Unloaded：MiniApp页面销毁的生命周期状态。在MiniApp页面被销毁时触发。此时注册的监测事件被销毁。</p> -->
-          </li>
-          </ul>
+          </ol>
        </section>
+       
        <section>
-          <h2>MiniApp Page Lifecycle API</h2>
-          <!-- <p its-locale-filter-list="en" lang="en"> -->
-          <p>MiniApp page lifecycle involves the following API:</p>
-          <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">MiniApp页面生命周期包含如下API：</p> -->
-          <ul>
-<li>
-  <!-- <p its-locale-filter-list="en" lang="en"> -->
-  <p>onLoad(query: Object): to monitor the callback of MiniApp page loading.</p>
-  <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">onLoad(query: Object)：监测MiniApp页面加载的回调</p> -->
-<ul>
-<li>
-  <!-- <p its-locale-filter-list="en" lang="en"> -->
-  <p>query: inputted query for current MiniApp page</p>
-  <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">query：当前MiniApp的输入query</p> -->
-</li>
-</ul>
-</li>
-<li>
-  <!-- <p its-locale-filter-list="en" lang="en"> -->
-  <p>onShow(): to monitor the callback of MiniApp page display.</p>
-  <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">onShow()：监测MiniApp页面显示的回调</p> -->
-</li>
-<li>
-  <!-- <p its-locale-filter-list="en" lang="en"> -->
-  <p>onReady(): to monitor the callback of MiniApp page’s first rendering.</p>
-  <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">onReady()：监测MiniApp首次渲染的回调</p> -->
-</li>
-<li>
-  <!-- <p its-locale-filter-list="en" lang="en"> -->
-  <p>onHide(): to monitor the callback of MiniApp page switching to be running in the background.</p>
-  <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">onHide()：监测MiniApp转为后台运行的回调</p> -->
-</li>
-<li>
-  <!-- <p its-locale-filter-list="en" lang="en"> -->
-  <p>onUnload(): to monitor the callback of destroying MiniApp page.</p>
-  <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">onUnload()：监测MiniApp页面销毁的回调</p> -->
-</li>
-          </ul>
-         </section>
+          <h2>MiniApp Page Lifecycle States</h2>      
+          <p>This spec formalizes five MiniApp <dfn data-dfn-for="Document" data-export="">page lifecycle states</dfn> to support the above [=Document/page lifecycle events=]:</p>
+          
+          <dl>
+            <dt>
+                <dfn data-dfn-for="Document" data-export="" data-dfn-type="dfn">page loaded</dfn>
+            </dt>
+            <dd>
+                Lifecycle state for MiniApp [=Document/page loading=]. This means that MiniApp [=Document/page loading=] is completed. At this moment, [=Document/Logic layer=] has obtained initialization data, and developer can obtain the path of current MiniApp page as well as the path’s query. 
+            </dd>
+            
+            <dt>
+                <dfn data-dfn-for="Document" data-export="" data-dfn-type="dfn">page ready</dfn>
+            </dt>
+            <dd>
+                Lifecycle state for MiniApp [=Document/page first render ready=]. It is triggered once the MiniApp page [=Document/first render=] is completed. At this moment, the page UI can be configured.
+            </dd>
+            
+            <dt>
+                <dfn data-dfn-for="Document" data-export="" data-dfn-type="dfn">page shown</dfn>
+            </dt>
+            <dd>
+                Lifecycle state for MiniApp [=Document/page running in foreground=]. It is triggered once the page switches to be [=Document/page running in foreground=] from [=Document/page running in background=]. At this moment, developer can update data and refresh page.
+            </dd>
+            
+            <dt>
+                <dfn data-dfn-for="Document" data-export="" data-dfn-type="dfn">page hidden</dfn>
+            </dt>
+            <dd>
+                Lifecycle state for MiniApp [=Document/page running in background=]. It is triggered once the MiniApp page switches to be [=Document/page running in foreground=] to [=Document/page running in background=].
+            </dd>
+            
+            <dt>
+                <dfn data-dfn-for="Document" data-export="" data-dfn-type="dfn">page unloaded</dfn>
+            </dt>
+            <dd>
+                Lifecycle state for MiniApp [=Document/page unloading=]. It is triggered once the MiniApp page is closed.
+            </dd>
+            
+          </dl>
+       </section>
+       
+       <section data-dfn-for="PageState">
+          <h2>
+            <code>PageState</code> enum
+          </h2>
+          <p>The MiniApp [=Document/page lifecycle states=] are reflected in the API via the {{PageState}} enum.</p>
+            
+          <pre class="idl">
+          enum PageState {
+              "loaded", "ready", "shown", "hidden", "unloaded"
+          };
+          </pre> 
+          
+          <p>
+            The <dfn>PageState</dfn> enum is used to represent the MiniApp [=Document/page lifecycle states=].
+          </p>
+          <p>
+            The "<dfn>loaded</dfn>" enum value represents the [=Document/page loaded=]
+            [=Document/page lifecycle states=].
+         </p>
+         <p>
+            The "<dfn>ready</dfn>" enum value represents the [=Document/page ready=]
+            [=Document/page lifecycle states=].
+         </p>
+          <p>
+            The "<dfn>shown</dfn>" enum value represents the [=Document/page shown=]
+            [=Document/page lifecycle states=].
+         </p>
+         <p>
+            The "<dfn>hidden</dfn>" enum value represents the [=Document/page hidden=]
+            [=Document/page lifecycle states=].
+         </p>
+         <p>
+            The "<dfn>unloaded</dfn>" enum value represents the [=Document/page unloaded=]
+            [=Document/page lifecycle states=].
+         </p>
+          
+        </section>
+       
+       <section data-dfn-for="Page">
+       
+        <h2>MiniApp Page Lifecycle interface and callbacks</h2>
+          
+          <pre class="idl">
+           [Exposed=Window]
+           interface Page {
+            undefined getPageState (
+                PageLoadedCallback pageLoadedCallback,
+                PageReadyCallback pageReadyCallback,
+                PageShownCallback pageShownCallback,
+                PageHiddenCallback pageHiddenCallback,
+                PageUnloadedCallback pageUnloadedCallback
+            );
+           };
+
+          callback PageLoadedCallback = undefined (
+            PageInputObject pageInputObject
+          );
+          
+          callback PageReadyCallback = undefined (
+          );
+          
+          callback PageShownCallback = undefined (
+          );
+          
+          callback PageHiddenCallback = undefined (
+          );
+          
+          callback PageUnloadedCallback = undefined (
+          );
+
+         </pre>
+         
+         <section>
+            <h2>
+                `getPageState()` method
+            </h2>
+            <p>
+                When <dfn>getPageState()</dfn> is invoked, the user agent MUST:
+            </p>
+            <ol class="algorithm">
+                <li>Request page lifecycle state, passing pageLoadedCallback, pageReadyCallback, pageShownCallback, pageHiddenCallback, and pageUnloadedCallback.
+                </li>
+                <li>Return `undefined`.
+                </li>
+            </ol>
+        </section>
+        
+        <section>
+            <h2>
+                `pageLoadedCallback`
+            </h2>
+            <p>
+                If a communication channel has been established between [=Document/View layer=] and [=Document/Logic layer=], invoke {{PageLoadedCallback}}.
+            </p>
+        </section>
+        
+        <section>
+            <h2>
+                `pageReadyCallback`
+            </h2>
+            <p>
+                If MiniApp page [=Document/first render=] is completed, invoke {{PageReadyCallback}}.
+            </p>
+        </section>
+        
+        <section>
+            <h2>
+                `pageShownCallback`
+            </h2>
+            <p>
+                If MiniApp page switches to be [=Document/page running in foreground=] from [=Document/page running in background=], invoke {{PageShownCallback}}.
+            </p>
+        </section>
+        
+        <section>
+            <h2>
+                `pageHiddenCallback`
+            </h2>
+            <p>
+                If MiniApp page switches to be [=Document/page running in background=] from [=Document/page running in foreground=], invoke {{PageHiddenCallback}}.
+            </p>
+        </section>
+        
+        <section>
+            <h2>
+                `pageUnloadedCallback`
+            </h2>
+            <p>
+                If MiniApp page is closed, invoke {{PageUnloadedCallback}}.
+            </p>
+        </section>
+       
+       </section>
+       
+       <section data-dfn-for="PageInputObject">
+            <h2>
+                `PageInputObject` interface
+            </h2>
+            <pre class="idl">
+                [Exposed=Window]
+                interface PageInputObject {
+                    readonly attribute DOMString pageInputQuery;
+                };
+            </pre>
+            <section>
+                <h3>
+                    `pageInputQuery` attribute
+                </h3>
+                <p>
+                    The <dfn>pageInputQuery</dfn> attribute contains inputted query for the MiniApp page.
+                </p>
+            </section>
+                        
+        </section>
+       
+       
         </section>
 
      <section class='informative'>
@@ -455,7 +637,7 @@
          
         <!-- <p its-locale-filter-list="en" lang="en"> -->
         <p>
-          onShow and onHide event enables developers to know when a MiniApp is visible. By use of onShow event, developers can choose to process and hide the sensitive data, before MiniApp page switches to be running in foreground; the onUnload event provides a notification that the page is being unloaded.
+          MiniApp [=Document/running in foreground=] and [=Document/running in background=] event enables developer to know when a MiniApp is visible. By use of [=Document/page running in foreground=] event, developer can choose to process and hide the sensitive data, before MiniApp page switches to be [=Document/page running in foreground=]; the [=Document/page unloaded=] event provides a notification that the page is being unloaded.
         </p>
         <!-- <p its-locale-filter-list="zh-hans" lang="zh-hans">
           onShow和onHide事件会通知开发者小程序是否可见，当小程序回到前台时，提供onShow事件，开发者可以对敏感数据进行处理，同时提供onUnload事件将在页面被销毁时提示开发者。
