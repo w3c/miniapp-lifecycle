@@ -212,6 +212,7 @@
            [Exposed=Window]
            interface Global {
             undefined getGlobalState (
+                GlobalState globalState,
                 GlobalLaunchedCallback globalLaunchedCallback,
                 GlobalShownCallback globalShownCallback,
                 GlobalHiddenCallback globalHiddenCallback,
@@ -514,6 +515,7 @@
            [Exposed=Window]
            interface Page {
             undefined getPageState (
+                PageState pageState,
                 PageLoadedCallback pageLoadedCallback,
                 PageReadyCallback pageReadyCallback,
                 PageShownCallback pageShownCallback,
