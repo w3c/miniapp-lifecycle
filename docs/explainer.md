@@ -120,17 +120,17 @@ Page({
 <table>
     <thead>
         <tr class="thead-first-child">
-          <th align="left"> MiniApp Lifecycle Events</th>
+          <th align="left"> MiniApp Lifecycle States</th>
           <th align="left"> Lifecycle States defined by existing W3C specs </th>
         </tr>
     </thead>
         <tr class="tbody-first-child">
           <td align="left"> Application Launched </td>
-          <td align="left"> Service Worker Intall (https://www.w3.org/TR/service-workers/#service-worker-global-scope-install-event) </td>
+          <td align="left"> Service Worker Intalled (https://www.w3.org/TR/service-workers-1/#dom-serviceworkerstate-installed) </td>
         </tr>
         <tr class="tbody-first-child">
           <td align="left"> Application Shown </td>
-          <td align="left"> Service Worker Activate (https://www.w3.org/TR/service-workers/#service-worker-global-scope-activate-event) </td>
+          <td align="left"> Service Worker Activating (https://www.w3.org/TR/service-workers-1/#dom-serviceworkerstate-activating) or Activated (https://www.w3.org/TR/service-workers-1/#dom-serviceworkerstate-activated) </td>
         </tr>
         <tr class="tbody-first-child">
           <td align="left"> Application Hidden </td>
@@ -138,7 +138,7 @@ Page({
         </tr>
         <tr class="tbody-first-child">
           <td align="left"> Application Error </td>
-          <td align="left"> N/A </td>
+          <td align="left"> Service Worker Redundant (https://www.w3.org/TR/service-workers-1/#dom-serviceworkerstate-redundant) </td>
         </tr>
         <tr class="tbody-first-child">
           <td align="left"> Page Loaded </td>
@@ -158,7 +158,7 @@ Page({
         </tr>
         <tr class="tbody-first-child">
           <td align="left"> Page Unloaded </td>
-          <td align="left"> Discarded (https://wicg.github.io/page-lifecycle/#sec-lifecycle-states) </td>
+          <td align="left"> Discarded (https://wicg.github.io/page-lifecycle/#sec-lifecycle-states) (TAG feedback: this document is out of date and itself needs to be updated (in particular to reflect installation via Manifest, which is missing)) </td>
         </tr>
         
 </table>
