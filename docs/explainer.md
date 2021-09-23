@@ -138,7 +138,7 @@ Page({
         </tr>
         <tr class="tbody-first-child">
           <td align="left"> Application Error </td>
-          <td align="left"> Service Worker Redundant (https://www.w3.org/TR/service-workers-1/#dom-serviceworkerstate-redundant) </td>
+          <td align="left"> <a href="https://w3c.github.io/uievents/#event-type-error">error</a> event on <code>Element</code>/<code>Window</code> </td>
         </tr>
         <tr class="tbody-first-child">
           <td align="left"> Page Loaded </td>
@@ -158,7 +158,7 @@ Page({
         </tr>
         <tr class="tbody-first-child">
           <td align="left"> Page Unloaded </td>
-          <td align="left"> Discarded (https://wicg.github.io/page-lifecycle/#sec-lifecycle-states) (TAG feedback: this document is out of date and itself needs to be updated (in particular to reflect installation via Manifest, which is missing)) </td>
+          <td align="left"> Discarded (https://wicg.github.io/page-lifecycle/#sec-lifecycle-states) </td>
         </tr>
         
 </table>
