@@ -126,7 +126,7 @@ Page({
     </thead>
         <tr class="tbody-first-child">
           <td align="left"> Application Launched </td>
-          <td align="left"> Service Worker Intalled (https://www.w3.org/TR/service-workers-1/#dom-serviceworkerstate-installed) </td>
+          <td align="left"> Service Worker Installed (https://www.w3.org/TR/service-workers-1/#dom-serviceworkerstate-installed) </td>
         </tr>
         <tr class="tbody-first-child">
           <td align="left"> Application Shown </td>
