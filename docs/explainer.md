@@ -120,17 +120,17 @@ Page({
 <table>
     <thead>
         <tr class="thead-first-child">
-          <th align="left"> MiniApp Lifecycle Events</th>
+          <th align="left"> MiniApp Lifecycle States</th>
           <th align="left"> Lifecycle States defined by existing W3C specs </th>
         </tr>
     </thead>
         <tr class="tbody-first-child">
           <td align="left"> Application Launched </td>
-          <td align="left"> Service Worker Intall (https://www.w3.org/TR/service-workers/#service-worker-global-scope-install-event) </td>
+          <td align="left"> Service Worker Installed (https://www.w3.org/TR/service-workers-1/#dom-serviceworkerstate-installed) </td>
         </tr>
         <tr class="tbody-first-child">
           <td align="left"> Application Shown </td>
-          <td align="left"> Service Worker Activate (https://www.w3.org/TR/service-workers/#service-worker-global-scope-activate-event) </td>
+          <td align="left"> Service Worker Activating (https://www.w3.org/TR/service-workers-1/#dom-serviceworkerstate-activating) or Activated (https://www.w3.org/TR/service-workers-1/#dom-serviceworkerstate-activated) </td>
         </tr>
         <tr class="tbody-first-child">
           <td align="left"> Application Hidden </td>
@@ -138,7 +138,7 @@ Page({
         </tr>
         <tr class="tbody-first-child">
           <td align="left"> Application Error </td>
-          <td align="left"> N/A </td>
+          <td align="left"> <a href="https://w3c.github.io/uievents/#event-type-error">error</a> event on <code>Element</code>/<code>Window</code> </td>
         </tr>
         <tr class="tbody-first-child">
           <td align="left"> Page Loaded </td>
