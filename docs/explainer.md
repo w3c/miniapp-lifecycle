@@ -68,7 +68,7 @@ enters the state of “Hidden”
 
 ## MiniApp origin
 
-When a MiniApp is launched, its hosted Super App or OS will check the origin of the MiniApp, to guarantee the MiniApp's security.
+When a MiniApp is launched, its hosted [Super App](https://w3c.github.io/miniapp/white-paper/#dfn-super-app) or OS will check the origin of the MiniApp, to guarantee the MiniApp's security.
 
 ## Sample code
 
