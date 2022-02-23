@@ -70,6 +70,8 @@ enters the state of “Hidden”
 
 When a MiniApp is launched, its hosted [Super App](https://w3c.github.io/miniapp/white-paper/#dfn-super-app) or OS will check the origin of the MiniApp, to guarantee the MiniApp's security.
 
+For container component like WebView which can render web page, MiniApp restricts the URLs which can be opened by the component. Only the domain configured in the MiniApp Platform can be accessed vis WebView. Also, if the component contains an iframe, only the URLs configured in the MiniApp Platform can be opened by the iframe.
+
 ## Sample code
 
 *	MiniApp application lifecycle: 
