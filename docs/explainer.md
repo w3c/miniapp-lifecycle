@@ -76,7 +76,7 @@ For container component like WebView which can render web page, MiniApp restrict
 
 *	MiniApp application lifecycle: 
 
-Assume MiniApp URI is: `miniapp://foo;version=1.0.1-trial@example.com:8080/pages/index?k=v#bar`
+Assume MiniApp URI is: `platform://miniapp/foo;version=1.0.1-trial/pages/index?k=v#bar`
 
 ```js
 App({ 
