@@ -646,7 +646,10 @@
      <section class='informative'>
       <h2>Privacy Considerations</h2>
       <p>
-          MiniApp Global Application Lifecycle interface {{Global}} introduces {{inputObject}} which stores the inputted query for the MiniApp, the page path for current MiniApp, and the source info. In order to protect users from any potential unsanctioned tracking threat, these storages should be cleared when users intend to clear them.
+          MiniApp Global Application Lifecycle interface {{Global}} introduces {{inputObject}} involves the processing of the inputted query for the MiniApp, the page path for current MiniApp, and the source info. In order to protect users from any potential unsanctioned tracking threat, it is not recommended to store these values locally. If these values are stored, these storages should be cleared when users intend to clear them.
+      </p>
+      <p>
+         If the inputted query for the MiniApp contains sensitive information such as user's personal data, the sensitive information shall not be in plaintext.
       </p>
      </section>
     
