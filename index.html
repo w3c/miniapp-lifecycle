@@ -304,8 +304,28 @@
                     readonly attribute DOMString inputQuery;
                     readonly attribute DOMString pagePath;
                     readonly attribute DOMString referrerInfo;
+                    readonly attribute DOMString lang;
+                    readonly attribute TextDirection dir;
                 };
             </pre>
+            
+            <code>TextDirection</code></dfn> enum</p>
+                <pre class="def idl">
+                    <span class="idlEnum" id="idl-def-textdirection" data-idl="" data-title="TextDirection">enum <span class="idlEnumID"><a data-lt="TextDirection" href="#textdirection" class="internalDFN" data-link-type="dfn" data-for=""><code>TextDirection</code></a></span> {    
+                        <a href="#textdirection-auto" class="idlEnumItem">"auto"</a>,
+                        <a href="#textdirection-ltr" class="idlEnumItem">"ltr"</a>,    
+                        <a href="#textdirection-rtl" class="idlEnumItem">"rtl"</a>
+                    };</span>
+                </pre>
+
+                <p>The text-direction values are the following, implying that the value of the human-readable members is by default:</p>
+                <dl><dt><dfn data-dfn-for="textdirection" data-dfn-type="dfn" id="textdirection-auto" data-idl="" data-title="auto" class="lint-ignore">
+	            <code>auto</code></dfn></dt><dd> Directionality is determined by the Unicode Bidirectional Algorithm [[UAX9]] algorithm.</dd>
+                <dt><dfn data-dfn-for="textdirection" data-dfn-type="dfn" id="textdirection-ltr" data-idl="" data-title="ltr" class="lint-ignore">
+	            <code>ltr</code></dfn></dt><dd>Left-to-right text.</dd>
+                <dt><dfn data-dfn-for="textdirection" data-dfn-type="dfn" id="textdirection-rtl" data-idl="" data-title="rtl" class="lint-ignore">
+	            <code>rtl</code></dfn></dt><dd>Right-to-left text.</dd></dl>
+            
             <section>
                 <h3>
                     `inputQuery` attribute
@@ -335,9 +355,28 @@
                     `referrerInfo` attribute
                 </h3>
                 <p>
-                    The <dfn>referrerInfo</dfn> attribute contains the source info for the MiniApp, including MiniApp ID, and optional extra data.
+                    The <dfn>referrerInfo</dfn> attribute contains the source info for the MiniApp, including MiniApp ID, and optional extra data including human readable value.
                 </p>
             </section>
+            
+            <section>
+                <h3>
+                    `lang` attribute
+                </h3>
+                <p>
+                    The <dfn>lang</dfn> attribute specifies the primary language for the values of the referrerInfo attribute if it contains human readable value.
+                </p>
+            </section>
+            
+            <section>
+                <h3>
+                    `dir` attribute
+                </h3>
+                <p>
+                    The <dfn>dir</dfn> attribute specifies the base direction for the values of the referrerInfo attribute if it contains human readable value.
+                </p>
+                
+	        </section>
             
         </section>
         
@@ -349,6 +388,8 @@
                 [Exposed=Window]
                 interface LifecycleError {
                     readonly attribute DOMString errorDescription;
+                    readonly attribute DOMString lang;
+                    readonly attribute TextDirection dir;
                 };
             </pre>
             
@@ -360,6 +401,25 @@
                     The <dfn>errorDescription</dfn> attribute is a developer-friendly textual description of the [=Document/error=] [=Document/global application lifecycle states=].
                 </p>
             </section>
+            
+            <section>
+                <h3>
+                    `lang` attribute
+                </h3>
+                <p>
+                    The <dfn>lang</dfn> attribute specifies the primary language for the values of the errorDescription attribute.
+                </p>
+            </section>
+            
+            <section>
+                <h3>
+                    `dir` attribute
+                </h3>
+                <p>
+                    The <dfn>dir</dfn> attribute specifies the base direction for the values of the errorDescription attribute.
+                </p>
+                
+	        </section>
         
        </section>
        
