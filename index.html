@@ -168,6 +168,10 @@
           Lifecycle state for MiniApp [=Document/in error=]. It is triggered once the MiniApp is confronted with script error.
         </dd>
       </dl>
+            
+         <p>
+            The mapping to existing Web specifications such as <a href="https://www.w3.org/TR/service-workers/">Service Workers</a> is listed in <a href="https://github.com/w3c/miniapp-lifecycle/blob/main/docs/explainer.md#comparison-with-some-related-work-in-w3c-such-as-service-worker-page-visibility-and-page-lifecycle">MiniApp Lifecycle Explainer</a>. 
+         </p>
         </section>
                 
         <section data-dfn-for="GlobalState">
@@ -212,6 +216,7 @@
            [Exposed=Window]
            interface Global {
             undefined getGlobalState (
+                GlobalState globalState,
                 GlobalLaunchedCallback globalLaunchedCallback,
                 GlobalShownCallback globalShownCallback,
                 GlobalHiddenCallback globalHiddenCallback,
@@ -317,6 +322,12 @@
                 <p>
                     The <dfn>pagePath</dfn> attribute contains the page path for current MiniApp.
                 </p>
+                
+                <aside class="note">
+                    <p>
+                        By default, the <code>pagePath</code> uses the value defined by <a href="https://www.w3.org/TR/miniapp-manifest/#pages-member">the first item in the MiniApp manifest's pages member</a>. If the value is not set by <a href="https://www.w3.org/TR/miniapp-manifest/#pages-member"> the MiniApp manifest's pages member</a>, the <code>pagePath</code> uses the path of current MiniApp's first page.
+                    </p>
+                </aside>
             </section>
             
             <section>
@@ -466,6 +477,10 @@
             </dd>
             
           </dl>
+           
+           <p>
+            The mapping to existing Web specifications such as <a href="https://w3c.github.io/page-visibility/">Page Visibility</a> is listed in <a href="https://github.com/w3c/miniapp-lifecycle/blob/main/docs/explainer.md#comparison-with-some-related-work-in-w3c-such-as-service-worker-page-visibility-and-page-lifecycle">MiniApp Lifecycle Explainer</a>. 
+         </p>
        </section>
        
        <section data-dfn-for="PageState">
@@ -514,6 +529,7 @@
            [Exposed=Window]
            interface Page {
             undefined getPageState (
+                PageState pageState,
                 PageLoadedCallback pageLoadedCallback,
                 PageReadyCallback pageReadyCallback,
                 PageShownCallback pageShownCallback,
@@ -650,6 +666,12 @@
       </p>
       <p>
          If the inputted query for the MiniApp or the inputted query for the MiniApp page contains privacy-sensitive information (e.g. user personal data), the privacy-sensitive information shall not be in cleartext.
+      </p>
+    
+     <section class='informative'>
+      <h2>Accessibility Considerations</h2>
+      <p>
+          As MiniApp Lifecycle is not user aware and does not involve user interaction, accessibility consideration is not needed in this specification.
       </p>
      </section>
     
