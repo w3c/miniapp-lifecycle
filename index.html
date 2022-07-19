@@ -215,8 +215,7 @@
           <pre class="idl">
            [Exposed=Window]
            interface Global {
-            undefined getGlobalState (
-                GlobalState globalState,
+            GlobalState getGlobalState (
                 GlobalLaunchedCallback globalLaunchedCallback,
                 GlobalShownCallback globalShownCallback,
                 GlobalHiddenCallback globalHiddenCallback,
@@ -251,7 +250,7 @@
             <ol class="algorithm">
                 <li>Request global application lifecycle state, passing globalLaunchedCallback, globalShownCallback, globalHiddenCallback, and globalErrorCallback.
                 </li>
-                <li>Return `undefined`.
+                <li>Return {{GlobalState}}.
                 </li>
             </ol>
         </section>
@@ -588,7 +587,7 @@
           <pre class="idl">
            [Exposed=Window]
            interface Page {
-            undefined getPageState (
+            PageState getPageState (
                 PageState pageState,
                 PageLoadedCallback pageLoadedCallback,
                 PageReadyCallback pageReadyCallback,
@@ -626,7 +625,7 @@
             <ol class="algorithm">
                 <li>Request page lifecycle state, passing pageLoadedCallback, pageReadyCallback, pageShownCallback, pageHiddenCallback, and pageUnloadedCallback.
                 </li>
-                <li>Return `undefined`.
+                <li>Return {{PageState}}.
                 </li>
             </ol>
         </section>
