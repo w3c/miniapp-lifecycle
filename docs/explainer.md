@@ -68,9 +68,14 @@ enters the state of “Hidden”
 
 ## MiniApp origin
 
-When a MiniApp is launched, its hosted [Super App](https://w3c.github.io/miniapp/white-paper/#dfn-super-app) or OS will check the origin of the MiniApp, to guarantee the MiniApp's security.
+MiniApp follows the same-origin policies. MiniApp uses WebView to access and Web contents. Embedding Web content in a MiniApp can be thought of in the same way as having an iframe on website, where the MiniApp is the top-level context and the WebView is the iframe. The Web contents of an iframe are only accessible if it's a same-origin.
 
-For container component like WebView which can render web page, MiniApp restricts the URLs which can be opened by the component. Only the domain configured in the MiniApp Platform can be accessed vis WebView. Also, if the component contains an iframe, only the URLs configured in the MiniApp Platform can be opened by the iframe.
+At the same time, the MiniApp platform will have its own business policy to manage MiniApps uploaded to the MiniApp platform, which is to check the validity of the MiniApp's domain. This part is more like a business policy, which is out scope of MiniApp standard.
+
+In detail, in the first step, MiniApp developer need to submit its MiniApp domain along with the MiniApp package to the backend MiniApp platform, which is provided by the hosted Super App or OS vendors. The MiniApp platform will check and determine whether the MiniApp domain is owned by the MiniApp developer. If so, the MiniApp domain can be registered. 
+
+Then, when a MiniApp is firstly launched, its hosted [Super App](https://w3c.github.io/miniapp/white-paper/#dfn-super-app) or OS will download the MiniApp package from the backend MiniApp platform. And the MiniApp runtime is responsible for checking the validity of MiniApp's request URI domain. If the domain has been registered in the MiniApp platform, then a WebView will be called to open and render the new page identified by the request URI. Same-origin Policy is handled by WebView.
+
 
 ## Sample code
 
