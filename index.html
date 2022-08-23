@@ -210,84 +210,82 @@
         
                   
         <section data-dfn-for="Global">
-          <h2>MiniApp Global Application Lifecycle interface and callbacks</h2>
+          <h2>MiniApp Global Application Lifecycle interface</h2>
           
           <pre class="idl">
            [Exposed=Window]
            interface Global {
-            GlobalState getGlobalState (
-                GlobalLaunchedCallback globalLaunchedCallback,
-                GlobalShownCallback globalShownCallback,
-                GlobalHiddenCallback globalHiddenCallback,
-                GlobalErrorCallback globalErrorCallback
-            );
+            readonly attribute GlobalState globalState;
+            readonly attribute InputObject inputObject;
+            readonly attribute LifecycleError lifecycleError;
+            attribute EventHandler ongloballaunched;
+            attribute EventHandler onglobalshown;
+            attribute EventHandler onglobalhidden;
+            attribute EventHandler onglobalerror;
            };
-
-          callback GlobalLaunchedCallback = undefined (
-            InputObject inputObject
-          );
-          
-          callback GlobalShownCallback = undefined (
-            InputObject inputObject
-          );
-          
-          callback GlobalHiddenCallback = undefined (
-          );
-          
-          callback GlobalErrorCallback = undefined (
-            LifecycleError lifecycleError
-          );
 
          </pre>
          
          <section>
-            <h2>
-                `getGlobalState()` method
-            </h2>
-            <p>
-                When <dfn>getGlobalState()</dfn> is invoked, the user agent MUST:
-            </p>
-            <ol class="algorithm">
-                <li>Request global application lifecycle state, passing globalLaunchedCallback, globalShownCallback, globalHiddenCallback, and globalErrorCallback.
-                </li>
-                <li>Return {{GlobalState}}.
-                </li>
-            </ol>
+                <h2>
+                    `globalState` attribute
+                </h2>
+                <p>
+                    On getting, the <dfn>globalState</dfn> attribute MUST return {{GlobalState}}.
+                </p>
         </section>
-        
+         
         <section>
             <h2>
-                `globalLaunchedCallback`
+                `inputObject` attribute
             </h2>
             <p>
-                If MiniApp's first page is ready to load, invoke {{GlobalLaunchedCallback}}.
+                The <dfn>inputObject</dfn> contains the basic information of the MiniApp, such as page path for the MiniApp, source info for the MiniApp.
             </p>
         </section>
         
         <section>
             <h2>
-                `globalShownCallback`
+                `lifecycleError` attribute
             </h2>
             <p>
-                If MiniApp enters the [=Document/shown=] [=Document/global application lifecycle states=], or if MiniApp switches to be [=Document/running in foreground=] from [=Document/running in background=], invoke {{GlobalShownCallback}}.
+                The <dfn>lifecycleError</dfn> contains error indication information for [=Document/in error=] event type .
             </p>
         </section>
         
         <section>
             <h2>
-                `globalHiddenCallback`
+                `ongloballaunched` event handler attribute
             </h2>
             <p>
-                If MiniApp switches to be [=Document/running in background=] from [=Document/running in foreground=], invoke {{GlobalHiddenCallback}}.
+                The <dfn>ongloballaunched</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/initialization=] event type.
             </p>
         </section>
         
         <section>
             <h2>
-                `globalErrorCallback`
+               `onglobalshown` event handler attribute
             </h2>
             <p>
-                If MiniApp is confronted with script error, invoke {{GlobalErrorCallback}}.
+                The <dfn>onglobalshown</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/running in foreground=] event type.
+            </p>
+        </section>
+        
+        <section>
+            <h2>
+                `onglobalhidden` event handler attribute
+            </h2>
+            <p>
+                The <dfn>onglobalhidden</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/running in background=] event type.
+            </p>
+        </section>
+        
+        <section>
+            <h2>
+                `onglobalerror` event handler attribute
+            </h2>
+            <p>
+                 The <dfn>onglobalerror</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/in error=] event type.
             </p>
         </section>
                    
@@ -300,7 +298,6 @@
             <pre class="idl">
                 [Exposed=Window]
                 interface InputObject {
-                    readonly attribute DOMString inputQuery;
                     readonly attribute DOMString pagePath;
                     readonly attribute DOMString referrerInfo;
                     readonly attribute DOMString lang;
@@ -324,22 +321,13 @@
 	            <code>ltr</code></dfn></dt><dd>Left-to-right text.</dd>
                 <dt><dfn data-dfn-for="textdirection" data-dfn-type="dfn" id="textdirection-rtl" data-idl="" data-title="rtl" class="lint-ignore">
 	            <code>rtl</code></dfn></dt><dd>Right-to-left text.</dd></dl>
-            
-            <section>
-                <h3>
-                    `inputQuery` attribute
-                </h3>
-                <p>
-                    The <dfn>inputQuery</dfn> attribute contains inputted query for the MiniApp.
-                </p>
-            </section>
-            
+                        
             <section>
                 <h3>
                     `pagePath` attribute
                 </h3>
                 <p>
-                    The <dfn>pagePath</dfn> attribute contains the page path for current MiniApp.
+                    On getting, the <dfn>pagePath</dfn> attribute MUST return the page path for current MiniApp.
                 </p>
                 
                 <aside class="note">
@@ -587,93 +575,80 @@
           <pre class="idl">
            [Exposed=Window]
            interface Page {
-            PageState getPageState (
-                PageLoadedCallback pageLoadedCallback,
-                PageReadyCallback pageReadyCallback,
-                PageShownCallback pageShownCallback,
-                PageHiddenCallback pageHiddenCallback,
-                PageUnloadedCallback pageUnloadedCallback
-            );
+               readonly attribute PageState pageState;
+               readonly attribute PageInputObject pageInputObject;
+               attribute EventHandler onpageloaded;
+               attribute EventHandler onpageready;
+               attribute EventHandler onpageshown;
+               attribute EventHandler onpagehidden;
+               attribute EventHandler onpageunloaded;
            };
-
-          callback PageLoadedCallback = undefined (
-            PageInputObject pageInputObject
-          );
-          
-          callback PageReadyCallback = undefined (
-          );
-          
-          callback PageShownCallback = undefined (
-          );
-          
-          callback PageHiddenCallback = undefined (
-          );
-          
-          callback PageUnloadedCallback = undefined (
-          );
 
          </pre>
          
          <section>
-            <h2>
-                `getPageState()` method
-            </h2>
-            <p>
-                When <dfn>getPageState()</dfn> is invoked, the user agent MUST:
-            </p>
-            <ol class="algorithm">
-                <li>Request page lifecycle state, passing pageLoadedCallback, pageReadyCallback, pageShownCallback, pageHiddenCallback, and pageUnloadedCallback.
-                </li>
-                <li>Return {{PageState}}.
-                </li>
-            </ol>
+                <h2>
+                    `pageState` attribute
+                </h2>
+                <p>
+                    On getting, the <dfn>pageState</dfn> attribute MUST return {{PageState}}.
+                </p>
         </section>
         
         <section>
             <h2>
-                `pageLoadedCallback`
+                `pageInputObject` attribute
             </h2>
             <p>
-                If a communication channel has been established between [=Document/View layer=] and [=Document/Logic layer=], invoke {{PageLoadedCallback}}.
+                The <dfn>pageInputObject</dfn> contains inputted query for the MiniApp page.
             </p>
         </section>
         
         <section>
             <h2>
-                `pageReadyCallback`
+                `onpageloaded` event handler attribute
             </h2>
             <p>
-                If MiniApp page [=Document/first render=] is completed, invoke {{PageReadyCallback}}.
+                The <dfn>onpageloaded</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/page loaded=] event type.
             </p>
         </section>
         
         <section>
             <h2>
-                `pageShownCallback`
+                `onpageready` event handler attribute
             </h2>
             <p>
-                If MiniApp page switches to be [=Document/page running in foreground=] from [=Document/page running in background=], invoke {{PageShownCallback}}.
+                The <dfn>onpageready</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/page ready=] event type.
             </p>
         </section>
         
         <section>
             <h2>
-                `pageHiddenCallback`
+                `onpageshown` event handler attribute
             </h2>
             <p>
-                If MiniApp page switches to be [=Document/page running in background=] from [=Document/page running in foreground=], invoke {{PageHiddenCallback}}.
+                The <dfn>onpageshown</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/page shown=] event type.
             </p>
         </section>
-        
+         
         <section>
             <h2>
-                `pageUnloadedCallback`
+                `onpagehidden` event handler attribute
             </h2>
             <p>
-                If MiniApp page is closed, invoke {{PageUnloadedCallback}}.
+                The <dfn>onpagehidden</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/page hidden=] event type.
             </p>
         </section>
-       
+              
+        <section>
+            <h2>
+                `onpageunloaded` event handler attribute
+            </h2>
+            <p>
+                The <dfn>onpageunloaded</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/page unloaded=] event type.
+            </p>
+        </section>
+               
        </section>
        
        <section data-dfn-for="PageInputObject">
