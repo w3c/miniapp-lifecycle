@@ -730,7 +730,7 @@
      <section class='informative'>
       <h2>Accessibility Considerations</h2>
       <p>
-          As MiniApp Lifecycle is not user aware and does not involve user interaction, accessibility consideration is not needed in this specification.
+	  MiniApp Lifecycle involves (sometimes) responding to user interaction, e.g., {{GlobalState}} indicates whether the MiniApp is [=Document/shown=] or [=Document/hidden=];  {{PageState}} indicates whether the MiniApp page is [=Document/page shown=] or [=Document/page hidden=]. The user agent should adequately communicate with the accessibility services of the MiniApp lifecycle states, e.g., on getting, the {{GlobalState}} and the {{PageState}} should return MiniApp Global Application Lifecycle states and MiniApp Page Lifecycle states correspondingly to the accessibility services.
       </p>
      </section>
     
