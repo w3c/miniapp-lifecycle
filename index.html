@@ -258,7 +258,7 @@
                 `ongloballaunched` event handler attribute
             </h2>
             <p>
-                The <dfn>ongloballaunched</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/initialization=] event type.
+                The <dfn>ongloballaunched</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/initialization=] event type. Once this event is triggered, globalState will be set to [=Document/launched=].
             </p>
         </section>
         
@@ -267,7 +267,7 @@
                `onglobalshown` event handler attribute
             </h2>
             <p>
-                The <dfn>onglobalshown</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/running in foreground=] event type.
+                The <dfn>onglobalshown</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/running in foreground=] event type. Once this event is triggered, globalState will be set to [=Document/shown=].
             </p>
         </section>
         
@@ -276,7 +276,7 @@
                 `onglobalhidden` event handler attribute
             </h2>
             <p>
-                The <dfn>onglobalhidden</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/running in background=] event type.
+                The <dfn>onglobalhidden</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/running in background=] event type. Once this event is triggered, globalState will be set to [=Document/hidden=].
             </p>
         </section>
         
@@ -285,7 +285,7 @@
                 `onglobalerror` event handler attribute
             </h2>
             <p>
-                 The <dfn>onglobalerror</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/in error=] event type.
+                 The <dfn>onglobalerror</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/in error=] event type. Once this event is triggered, globalState will be set to [=Document/error=].
             </p>
         </section>
                    
@@ -609,7 +609,7 @@
                 `onpageloaded` event handler attribute
             </h2>
             <p>
-                The <dfn>onpageloaded</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/page loaded=] event type.
+                The <dfn>onpageloaded</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/page loading=] event type. Once this event is triggered, pageState will be set to [=Document/page loaded=].
             </p>
         </section>
         
@@ -618,7 +618,7 @@
                 `onpageready` event handler attribute
             </h2>
             <p>
-                The <dfn>onpageready</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/page ready=] event type.
+                 The <dfn>onpageready</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/page first render ready=] event type. Once this event is triggered, pageState will be set to [=Document/page ready=].
             </p>
         </section>
         
@@ -627,7 +627,7 @@
                 `onpageshown` event handler attribute
             </h2>
             <p>
-                The <dfn>onpageshown</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/page shown=] event type.
+                The <dfn>onpageshown</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/page running in foreground=] event type. Once this event is triggered, pageState will be set to [=Document/page shown=].
             </p>
         </section>
          
@@ -636,7 +636,7 @@
                 `onpagehidden` event handler attribute
             </h2>
             <p>
-                The <dfn>onpagehidden</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/page hidden=] event type.
+                The <dfn>onpagehidden</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/page running in background=] event type. Once this event is triggered, pageState will be set to [=Document/page hidden=].
             </p>
         </section>
               
@@ -645,7 +645,7 @@
                 `onpageunloaded` event handler attribute
             </h2>
             <p>
-                The <dfn>onpageunloaded</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/page unloaded=] event type.
+                The <dfn>onpageunloaded</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/page unloading=] event type. Once this event is triggered, pageState will be set to [=Document/page unloaded=].
             </p>
         </section>
                
