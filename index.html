@@ -410,6 +410,20 @@
         
        </section>
        
+           <section class='informative'>
+        <h2>Usage example</h2>
+        <p>Example of handling MiniApp lifecycles:</p>
+        <pre class="example js" title="">
+      
+            const doGlobalLaunched = (inputObject) => {
+                console.log(inputObject.pagePath);
+            };
+
+            global.addEventListener('globallaunched', doGlobalLaunched);
+      
+      </pre>
+    </section>
+       
        </section>
 
         <section>
