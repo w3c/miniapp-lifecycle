@@ -410,19 +410,6 @@
         
        </section>
        
-           <section class='informative'>
-        <h2>Usage example</h2>
-        <p>Example of handling MiniApp lifecycles:</p>
-        <pre class="example js" title="">
-      
-            const doGlobalLaunched = (inputObject) => {
-                console.log(inputObject.pagePath);
-            };
-
-            global.addEventListener('globallaunched', doGlobalLaunched);
-      
-      </pre>
-    </section>
        
        </section>
 
@@ -688,6 +675,32 @@
        
        
         </section>
+	
+	<section class='informative'>
+        <h2>Usage example</h2>
+        <p>Example of handling MiniApp global lifecycles:</p>
+        <pre class="example js" title="">
+      
+            const doGlobalLaunched = (inputObject) => {
+                console.log(inputObject.pagePath);
+            };
+
+            global.addEventListener('globallaunched', doGlobalLaunched);
+            
+      </pre>
+      
+      <p>Example of handling MiniApp page lifecycles:</p>
+        <pre class="example js" title="">
+      
+            const doPageLoaded = (pageInputObject) => {
+                console.log(pageInputObject.pageInputQuery);
+            };
+
+            page.addEventListener('pageloaded', doPageLoaded);
+            
+      </pre>
+      
+    </section>
 
      <section class='informative'>
       <h2>Security Considerations</h2>
