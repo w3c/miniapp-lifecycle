@@ -601,8 +601,9 @@
                 `pageInputObject` attribute
             </h2>
             <p>
-                The <dfn>pageInputObject</dfn> contains inputted query for the MiniApp page.
+                The <dfn>pageInputObject</dfn> contains pageInputQuery for loading the MiniApp page. 
             </p>
+            
         </section>
         
         <section>
@@ -669,6 +670,12 @@
                 <p>
                     The <dfn>pageInputQuery</dfn> attribute contains inputted query for the MiniApp page.
                 </p>
+                
+                <aside class="note">
+                    <p>
+                        By default, the inputted query is the URL parameter's query set by navigate or redirect API by another MiniApp page (for example, "path?key1=value&key2=value2"), so that the MiniApp page can have further implementation based on the inputted query while being loaded.
+                    </p>
+                </aside>
             </section>
                         
         </section>
