@@ -107,7 +107,7 @@
         <h2>MiniApp Global Application Lifecycle</h2>
         <section>
           <h2>MiniApp Global Application Lifecycle Events</h2>
-          <p>This spec defines what the lifecycle of a MiniApp global application is and adds definition to enable MiniApp to respond to four important <dfn data-dfn-for="Document" data-export="">global application lifecycle events</dfn> commonly performed by MiniApp:</p>
+          <p>This spec defines what the lifecycle of a MiniApp global application is and adds definition to enable MiniApp to respond to five important <dfn data-dfn-for="Document" data-export="">global application lifecycle events</dfn> commonly performed by MiniApp:</p>
           <ul>
           <li>
             <p>MiniApp <dfn data-dfn-for="Document" data-export="" data-dfn-type=
@@ -125,18 +125,22 @@
             <p>MiniApp <dfn data-dfn-for="Document" data-export="" data-dfn-type=
           "dfn">in error</dfn></p>
           </li>
+          <li>
+            <p>MiniApp <dfn data-dfn-for="Document" data-export="" data-dfn-type=
+          "dfn">unloading</dfn></p>
+          </li>
           </ul>
           
           <p>For each MiniApp, after [=Document/initialization=], it will be either [=Document/running in foreground=] or [=Document/running in background=].</p>
           <p>When user chooses to close the MiniApp by clicking the close button on MiniApp, or go to the mobile phone’s home screen, the MiniApp will not be destroyed immediately, but switch to be [=Document/running in background=].</p>
           <p>When user reopens the same MiniApp, MiniApp will switch from [=Document/running in background=] to [=Document/running in foreground=].</p>
-          <p>Only when MiniApp runs in the background for more than a specific time duration (e.g., 5 minutes), or occupies too much system resources in the background, the MiniApp will be destroyed.</p>
+          <p>[=Document/unloading=] marks the end of the MiniApp session, and the removal of all the temporary resources from the cache. MiniApp user agents perform this removal once the MiniApp meets criteria. By default, when MiniApp runs in the background for more than a specific time duration (e.g., 5 minutes), or occupies too much system resources in the background, the MiniApp will be unloaded. </p>
             
         </section>
         
         <section>
           <h2>MiniApp Global Application Lifecycle States</h2>
-          <p>This spec formalizes four <dfn data-dfn-for="Document" data-export="">global application lifecycle states</dfn> to support the above [=Document/global application lifecycle events=]:</p>
+          <p>This spec formalizes five <dfn data-dfn-for="Document" data-export="">global application lifecycle states</dfn> to support the above [=Document/global application lifecycle events=]:</p>
 
       <dl>
         <dt>
@@ -167,6 +171,13 @@
         <dd>
           Lifecycle state for MiniApp [=Document/in error=]. It is triggered once the MiniApp is confronted with script error.
         </dd>
+        <dt>
+          <dfn data-dfn-for="Document" data-export="" data-dfn-type=
+          "dfn">unloaded</dfn>
+        </dt>
+        <dd>
+          Lifecycle state for MiniApp [=Document/unloading=]. It is triggered once the MiniApp is unloaded.
+        </dd>
       </dl>
             
          <p>
@@ -182,7 +193,7 @@
             
           <pre class="idl">
           enum GlobalState {
-              "launched", "shown", "hidden", "error"
+              "launched", "shown", "hidden", "error", "unloaded"
           };
           </pre> 
           
@@ -206,6 +217,10 @@
             The "<dfn>error</dfn>" enum value represents the [=Document/error=]
             [=Document/global application lifecycle states=].
          </p>
+         <p>
+            The "<dfn>unloaded</dfn>" enum value represents the [=Document/unloaded=]
+            [=Document/global application lifecycle states=].
+         </p>
         </section>
         
                   
@@ -222,6 +237,7 @@
             attribute EventHandler onglobalshown;
             attribute EventHandler onglobalhidden;
             attribute EventHandler onglobalerror;
+            attribute EventHandler onglobalunloaded;
            };
 
          </pre>
@@ -286,6 +302,15 @@
             </h2>
             <p>
                  The <dfn>onglobalerror</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/in error=] event type. Once this event is triggered, globalState will be set to [=Document/error=].
+            </p>
+        </section>
+        
+        <section>
+            <h2>
+                `onglobalunloaded` event handler attribute
+            </h2>
+            <p>
+                 The <dfn>onglobalunloaded</dfn> attribute is an <a>event handler IDL attribute</a> for the [=Document/unloading=] event type. Once this event is triggered, globalState will be set to [=Document/unloaded=].
             </p>
         </section>
                    
